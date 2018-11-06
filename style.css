@@ -1,0 +1,35 @@
+form {
+  height: 260px;
+  width: auto;
+  background: #FFF;
+  font-size: 24px;
+  color: #000;
+  text-align: center;
+  padding: 0 20px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  /* align horizontal */
+  align-items: center;
+  /* align vertical */
+}
+
+p {
+  height: 260px;
+  width: auto;
+  background: #FFF;
+  font-size: 36px;
+  color: #000;
+  text-align: center;
+  padding: 0 20px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  /* align horizontal */
+  align-items: center;
+  /* align vertical */
+}
+
+input{
+	text-align: center;
+}
