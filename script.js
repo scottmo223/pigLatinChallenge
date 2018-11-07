@@ -1,65 +1,81 @@
+let vowel = ["a", "e", "i", "o", "u"];
+let isConstonant = true;
+let isNormal = true;
+
+//input listeners for pressing enter and click
+let inputBox = document.getElementById("word");
+const submitButton = document.getElementById("submit");
+submitButton.addEventListener("click", getWord, false);
+//pressing enter works for a second, then the word disappears. ?
+inputBox.addEventListener("keydown", function(e){
+	if(e.keyCode === 13){
+		getWord();
+	}
+});
+
 //recieve input from text box
 function getWord() {
-	var x = document.getElementById("word").value;
+	let x = document.getElementById("word").value;
 	translate(x.toLowerCase());
 };
 
 //translate word
 function translate(word) {
 	//string to array then translation
-	var arr = word.split("");
-	var vowel = ["a","e","i","o","u"];
-	var cons = true;
-	var norm = true;
-	
-	//vowel
-	for (var i = 0; i < 4; i++) {
-		if(arr[0]==vowel[i]){
+	let arr = word.split("");
+
+	//word starting with vowel
+	for (let i = 0; i < 4; i++) {
+		if (arr[0] == vowel[i]) {
 			vowels(arr);
 		}
 	}
-	
-	//double constonant
-	for (var i = 0; i < 4; i++) {
-		if(arr[1]==vowel[i]){
-		    cons = !cons;
+
+	//word starting with double constonant
+	for (let i = 0; i < 4; i++) {
+		if (arr[1] == vowel[i]) {
+			isConstonant = !isConstonant;
 		}
 	}
-	if(cons){
+	if (isConstonant) {
 		dconstonant(arr);
 	}
-	
-	//everything else
-	if(norm){
-		normal(arr);
+
+	//all other words
+	if (isNormal) {
+		normalWord(arr);
 	}
+
+	//reset variables
+	isConstonant = true;
+	isNormal = true;
 };
 
-//back to string
-function disp(arr){
-	var trans = arr.join("");
+//array to string
+function disp(arr) {
+	let trans = arr.join("");
 	//add translation to html page
 	document.getElementById("trans").innerHTML = trans;
 };
 
-function vowels(arr){
+function vowels(arr) {
 	arr.push("ay");
 	disp(arr);
-	cons = !cons;
-	norm = !norm;
+	isConstonant = !isConstonant;
+	isNormal = !isNormal;
 };
 
-function dconstonant(arr){
-	arr.push(arr[0],arr[1]);
-	arr.splice(0,2);
+function dconstonant(arr) {
+	arr.push(arr[0], arr[1]);
+	arr.splice(0, 2);
 	arr.push("ay");
 	disp(arr);
-	norm = !norm;
+	isNormal = !isNormal;
 };
 
-function normal(arr){
-    arr.push(arr[0]);
-    arr.shift();
-    arr.push("ay");
-    disp(arr);
+function normalWord(arr) {
+	arr.push(arr[0]);
+	arr.shift();
+	arr.push("ay");
+	disp(arr);
 };
