@@ -15,9 +15,19 @@ inputBox.addEventListener("keydown", function(e){
 
 //recieve input from text box
 function getWord() {
-	let x = document.getElementById("word").value;
-	translate(x.toLowerCase());
+	let textInput = document.getElementById("word").value;
+	let wordsArr = textInput.split(" ");
+	document.getElementById("trans").innerHTML = "";
+	let translatedArr = [];
+	for (let i = 0; i < wordsArr.length; i++) {
+		const word = wordsArr[i].toLowerCase();
+		translatedArr.push(translate(word));
+
+	}
 };
+
+//loop through each word and translate it
+
 
 //translate word
 function translate(word) {
@@ -55,7 +65,7 @@ function translate(word) {
 function disp(arr) {
 	let trans = arr.join("");
 	//add translation to html page
-	document.getElementById("trans").innerHTML = trans;
+	document.getElementById("trans").innerHTML += trans += " ";
 };
 
 function vowels(arr) {
