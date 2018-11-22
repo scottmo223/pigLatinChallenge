@@ -1,23 +1,54 @@
-let vowel = ["a", "e", "i", "o", "u"];
+const vowel = ["a", "e", "i", "o", "u"];
 let isConstonant = true;
 let isNormal = true;
 
 //input listeners for pressing enter and click
-let inputBox = document.getElementById("word");
+let textBox = document.getElementById("word");
 const submitButton = document.getElementById("submit");
 submitButton.addEventListener("click", getWord, false);
-//pressing enter works for a second, then the word disappears. ?
-inputBox.addEventListener("keydown", function(e){
-	if(e.keyCode === 13){
-		getWord();
+
+//be able to press enter after typing word, instead of clicking button
+textBox.addEventListener("keyup", pressEnter => {
+	if(pressEnter.keyCode === 13){
+		submitButton.click();
 	}
 });
 
+/* 
+// Get the input field
+var input = document.getElementById("myInput");
+
+// Execute a function when the user releases a key on the keyboard
+input.addEventListener("keyup", function(event) {
+  // Cancel the default action, if needed
+  event.preventDefault();
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Trigger the button element with a click
+    document.getElementById("myBtn").click();
+  }
+}); */
+
+
+
+
+
+
 //recieve input from text box
 function getWord() {
-	let x = document.getElementById("word").value;
-	translate(x.toLowerCase());
+	let textInput = document.getElementById("word").value;
+	let wordsArr = textInput.split(" ");
+	document.getElementById("trans").innerHTML = "";
+	let translatedArr = [];
+	for (let i = 0; i < wordsArr.length; i++) {
+		const word = wordsArr[i].toLowerCase();
+		translatedArr.push(translate(word));
+
+	}
 };
+
+//loop through each word and translate it
+
 
 //translate word
 function translate(word) {
@@ -55,7 +86,7 @@ function translate(word) {
 function disp(arr) {
 	let trans = arr.join("");
 	//add translation to html page
-	document.getElementById("trans").innerHTML = trans;
+	document.getElementById("trans").innerHTML += trans += " ";
 };
 
 function vowels(arr) {
