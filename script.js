@@ -6,8 +6,6 @@ let isNormal = true;
 let textBox = document.getElementById("word");
 const submitButton = document.getElementById("submit");
 submitButton.addEventListener("click", getWord, false);
-
-//be able to press enter after typing word, instead of clicking button
 textBox.addEventListener("keyup", pressEnter => {
 	if(pressEnter.keyCode === 13){
 		submitButton.click();
@@ -16,45 +14,40 @@ textBox.addEventListener("keyup", pressEnter => {
 
 //recieve input from text box
 function getWord() {
-	let textInput = document.getElementById("word").value;
-	let wordsArr = textInput.split(" ");
-	document.getElementById("trans").innerHTML = "";
+	let wordsArray = document.getElementById("word").value.split(" "); //separates multiple words
+	document.getElementById("trans").innerHTML = ""; //resets the translated html when new words are passed through
+	//loop through each word translating it
 	let translatedArr = [];
-	for (let i = 0; i < wordsArr.length; i++) {
-		const word = wordsArr[i].toLowerCase();
+	for (let i = 0; i < wordsArray.length; i++) {
+		const word = wordsArray[i].toLowerCase();
 		translatedArr.push(translate(word));
-
 	}
 };
 
-//loop through each word and translate it
-
-
 //translate word
 function translate(word) {
-	//string to array then translation
-	let arr = word.split("");
+	let lettersArray = word.split("");
+	let isVowel = x => x === lettersArray[0];
 
 	//word starting with vowel
-	for (let i = 0; i < 4; i++) {
-		if (arr[0] == vowel[i]) {
-			vowels(arr);
-		}
+	if(vowel.some(isVowel)){
+		lettersArray.push("ay");
+		return disp(lettersArray);
 	}
 
 	//word starting with double constonant
 	for (let i = 0; i < 4; i++) {
-		if (arr[1] == vowel[i]) {
+		if (lettersArray[1] == vowel[i]) {
 			isConstonant = !isConstonant;
 		}
 	}
 	if (isConstonant) {
-		dconstonant(arr);
+		dconstonant(lettersArray);
 	}
 
 	//all other words
 	if (isNormal) {
-		normalWord(arr);
+		normalWord(lettersArray);
 	}
 
 	//reset variables
@@ -67,13 +60,6 @@ function disp(arr) {
 	let trans = arr.join("");
 	//add translation to html page
 	document.getElementById("trans").innerHTML += trans += " ";
-};
-
-function vowels(arr) {
-	arr.push("ay");
-	disp(arr);
-	isConstonant = !isConstonant;
-	isNormal = !isNormal;
 };
 
 function dconstonant(arr) {
