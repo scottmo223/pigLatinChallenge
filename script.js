@@ -12,18 +12,14 @@ textBox.addEventListener("keyup", pressEnter => {
 
 //recieve input from text box
 function getWord() {
-	let wordsArray = document.getElementById("word").value.split(" "); //separates multiple words
+	let wordsArray = document.getElementById("word").value.split(" ");
 	document.getElementById("trans").innerHTML = ""; //resets the translated html when new words are passed through
-	//loop through each word translating it
-	let translatedArr = [];
-	for (let i = 0; i < wordsArray.length; i++) {
-		const word = wordsArray[i].toLowerCase();
-		translatedArr.push(translate(word));
-	}
+	wordsArray.map(translate);
 };
 
 //translate word
-function translate(word) {
+const translate = word => {
+	word = word.toLowerCase(); //get rid of capital letters
 	let wordArray = word.split("");
 	let isVowel = x => x === wordArray[0];
 	let isDoubleConstonant = x => x != wordArray[1];
