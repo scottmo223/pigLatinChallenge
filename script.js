@@ -1,6 +1,4 @@
 const vowel = ["a", "e", "i", "o", "u"];
-let isConstonant = true;
-let isNormal = true;
 
 //input listeners for pressing enter and click
 let textBox = document.getElementById("word");
@@ -26,46 +24,35 @@ function getWord() {
 
 //translate word
 function translate(word) {
-	let lettersArray = word.split("");
-	let isVowel = x => x === lettersArray[0];
-	let isDoubleConstonant = x => x != lettersArray[1];
-	let isNormal = x => x != lettersArray[0];
+	let wordArray = word.split("");
+	let isVowel = x => x === wordArray[0];
+	let isDoubleConstonant = x => x != wordArray[1];
+	let isNormal = x => x != wordArray[0];
 
 	//word starting with vowel
 	if(vowel.some(isVowel)){
-		lettersArray.push("ay");
-		return disp(lettersArray);
+		wordArray.push("ay");
+		return display(wordArray);
 	}
 
 	//word starting with double constonant
 	if(vowel.every(isDoubleConstonant)){
-		lettersArray.push(lettersArray[0], lettersArray[1], "ay");
-		lettersArray.splice(0, 2);
-		return disp(lettersArray);
+		wordArray.push(wordArray[0], wordArray[1], "ay");
+		wordArray.splice(0, 2);
+		return display(wordArray);
 	}
 
 	//all other words
 	if(vowel.some(isNormal)){
-		lettersArray.push(lettersArray[0], "ay");
-		lettersArray.shift();
-		return disp(lettersArray);
+		wordArray.push(wordArray[0], "ay");
+		wordArray.shift();
+		return display(wordArray);
 	}
-
-	//reset variables
-	isConstonant = true;
-	isNormal = true;
 };
 
 //array to string
-function disp(arr) {
-	let trans = arr.join("");
+function display(wordArray) {
+	wordArray = wordArray.join("");
 	//add translation to html page
-	document.getElementById("trans").innerHTML += trans += " ";
-};
-
-function normalWord(arr) {
-	arr.push(arr[0]);
-	arr.shift();
-	arr.push("ay");
-	disp(arr);
+	document.getElementById("trans").innerHTML += wordArray += " ";
 };
