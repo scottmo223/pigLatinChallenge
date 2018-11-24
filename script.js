@@ -29,6 +29,7 @@ function translate(word) {
 	let lettersArray = word.split("");
 	let isVowel = x => x === lettersArray[0];
 	let isDoubleConstonant = x => x != lettersArray[1];
+	let isNormal = x => x != lettersArray[0];
 
 	//word starting with vowel
 	if(vowel.some(isVowel)){
@@ -38,15 +39,16 @@ function translate(word) {
 
 	//word starting with double constonant
 	if(vowel.every(isDoubleConstonant)){
-		lettersArray.push(lettersArray[0], lettersArray[1]);
+		lettersArray.push(lettersArray[0], lettersArray[1], "ay");
 		lettersArray.splice(0, 2);
-		lettersArray.push("ay");
 		return disp(lettersArray);
 	}
 
 	//all other words
-	if (isNormal) {
-		normalWord(lettersArray);
+	if(vowel.some(isNormal)){
+		lettersArray.push(lettersArray[0], "ay");
+		lettersArray.shift();
+		return disp(lettersArray);
 	}
 
 	//reset variables
