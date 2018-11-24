@@ -49,6 +49,5 @@ const translate = word => {
 //array to string
 function display(wordArray) {
 	wordArray = wordArray.join("");
-	//add translation to html page
 	document.getElementById("trans").innerHTML += wordArray += " ";
 };
