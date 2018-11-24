@@ -28,6 +28,7 @@ function getWord() {
 function translate(word) {
 	let lettersArray = word.split("");
 	let isVowel = x => x === lettersArray[0];
+	let isDoubleConstonant = x => x != lettersArray[1];
 
 	//word starting with vowel
 	if(vowel.some(isVowel)){
@@ -36,13 +37,11 @@ function translate(word) {
 	}
 
 	//word starting with double constonant
-	for (let i = 0; i < 4; i++) {
-		if (lettersArray[1] == vowel[i]) {
-			isConstonant = !isConstonant;
-		}
-	}
-	if (isConstonant) {
-		dconstonant(lettersArray);
+	if(vowel.every(isDoubleConstonant)){
+		lettersArray.push(lettersArray[0], lettersArray[1]);
+		lettersArray.splice(0, 2);
+		lettersArray.push("ay");
+		return disp(lettersArray);
 	}
 
 	//all other words
@@ -60,14 +59,6 @@ function disp(arr) {
 	let trans = arr.join("");
 	//add translation to html page
 	document.getElementById("trans").innerHTML += trans += " ";
-};
-
-function dconstonant(arr) {
-	arr.push(arr[0], arr[1]);
-	arr.splice(0, 2);
-	arr.push("ay");
-	disp(arr);
-	isNormal = !isNormal;
 };
 
 function normalWord(arr) {
